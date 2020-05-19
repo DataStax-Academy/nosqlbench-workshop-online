@@ -1,7 +1,7 @@
 Cassandra Developer Workshop - NoSQLBench
 ======================================================
 
-![OK](https://github.com/DataStax-Academy/kubernetes-workshop-online/blob/master/materials/images/title-page.png?raw=true)
+![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/title-page.png?raw=true)
 
 In this repository, you'll find everything from the online Cassandra Developer Workshop:
 - Materials used during presentations
