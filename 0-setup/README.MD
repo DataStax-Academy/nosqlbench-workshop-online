@@ -71,13 +71,50 @@ docker images
 docker run hello-world
 docker -v
 ```
-### 2. Download NoSQLBench
+
+### 2. Start Cassandra
+Obviously NoSQLBench needs something to benchmark against and in this workshop we will use an Apache Cassandra™ database. 
+Let's start one up using Docker
+```
+docker run --name my-cassandra -p 9042:9042 -d cassandra:latest
+```
+That's it. This will spin up the latest version of Cassandra on port 9042. Should just take a moment.
+
+### If you already happen to have a database up and running you can skip to step 3. It is assumed you are using default port 9042 for Cassandra.
+
+### 3. Download and execute NoSQLBench
 
 You can run NoSQLBench via a Linux binary or jar file. It is recommended to use the binary as it includes its own JVM and does not need to manage Java downloads, but for those NOT using Linux systems the jar is fine. If you are using the jar Java 14 is recommended.
 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To download and install on Windows or OSX simply download the latest release jar file [HERE](https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb.jar)
 
-![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To install on linux you can use the following commands
+Once the jar download completes run the following command
+📘 **Command to execute**
 ```
+java -jar nb.jar cql-iot
+```
+Notice that when using the jar you will to prepend your commands with "java -jar nb.jar", but other than that ALL commands will work exactly the same as the binary.
+
+![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To install on linux use the following commands
+
+📘 **Commands to execute**
+```bash
+# Download NoSQLBench binary
 wget https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb
+
+# Let's ensure ensure nb is executable
+chmod +x nb
+
+# Finally let's run a simple scenario (just ctrl-C to kill it once it starts up)
+./nb cql-iot
+```
+
+### 4. Some initial results
+Wither you're using the binary or jar you should see output similar the following log statement and initial reporting. Feel free to kill the scenario with ctrl-C at this point.
+
+📗 **Expected output**
+```bash
+Logging to logs/scenario_20200530_110840_609.log
+cql-iot_default_001: 3.45%/Running (details: min=0 cycle=345214 max=10000000)
+cql-iot_default_000: 100.00%/Finished (details: min=0 cycle=3 max=3) (last report)
 ```
