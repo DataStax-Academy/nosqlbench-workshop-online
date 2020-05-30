@@ -7,7 +7,7 @@ If you wish to use our Katacoda scenarios then go here -> https://katacoda.com/s
 The Katacoda scenarios will bring you through a step-by-step experience in environments you can easily restart and play around with. It does require a sign-up, but is completely **FREE** to use.
 
 # Initial Setup On Your Local Machine
-For those of you who would like to have a basic setup working on your own machine follow the steps below. **If you are using Katacoda you DO NOT NEED THESE STEPS**.
+For those of you who would like to have a basic setup working on your own machine follow the steps below. **If you are using Katacoda you DO NOT NEED THESE STEPS**. All scenarios will play out within Katacoda.
 
 ## Install Docker and Download NOSQLBench
 **NOTE:** Although Docker is **NOT** a pre-requisite for NoSQLBench, it is used in the following instructions to quickly spin up an Apache Cassandra™ cluster for use with NoSQLBench in our scenarios and later to use Grafana and Prometheus for metrics.
