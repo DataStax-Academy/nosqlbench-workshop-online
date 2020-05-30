@@ -20,7 +20,7 @@ Feel free to bookmark this page for future reference!
 
 | Title  | Description
 |---|---|
-| **0 - Finding help, Finding workloads, Finding examples** | [Instructions](0-setup/README.MD) |
+| **0 - Initial NoSQLBench setup** | [Instructions](0-setup/README.MD) |
 | **1 - Executing commands** | [Instructions](1-executing-commands/README.MD)  |
 | **2 - Understanding metrics** | [Instructions](2-grafana-metrics/README.MD)  |
 | **6 - Custom workloads and scenarios** | [Instructions](3-custom-workloads/README.MD)  |
