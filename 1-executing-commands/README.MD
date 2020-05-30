@@ -45,7 +45,7 @@ docker exec -it my-cassandra cqlsh -e "DROP KEYSPACE baselines;"
 
 ## Step 2: Create a Test Schema
 
-### 2a.
+### 2a. Create the schema
 In the previous step, we ran a pre-packaged benchmark. In the remainder of this scenario, we'll show you how to un-package and customize tests.
 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
@@ -69,7 +69,7 @@ Here's what the command parameters mean:
 - **workload=cql-keyvalue** identifies the workload description file, which in this case is **cql-keyvalue**
 - **tags=phase:schema** identifies the section of the workload file containing the operations to create the schema
 
-## 2b.
+## 2b. View the results
 In the last command we created a schema within our database for the cql-keyvalue workload. Let's take a look at what we just created.
 
 📘 **Command to execute**
@@ -78,6 +78,99 @@ docker exec -it my-cassandra cqlsh -e "DESCRIBE KEYSPACE baselines;"
 ```
 
 Look at the query output. You should see we created a keyspace named **baselines** and a table named **keyvalue**.
+
+## Step 3: Write Some Test Data
+Now that we have our newly created table, let's load some data, but before we do this we might want to review the activity **nb** will generate. We can do this by setting **driver=stdout**. Let's do it.
+
+### 3a. Test activity with stdout
+
+![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
+
+📘 **Command to execute**
+```
+java -jar nb.jar start driver=stdout workload=cql-keyvalue tags=phase:rampup cycles=10
+```
+
+![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To run on linux use the following command.
+
+📘 **Command to execute**
+```bash
+./nb run start driver=stdout workload=cql-keyvalue tags=phase:rampup cycles=10
+```
+
+Let's review the parameters for this command:
+
+- **start** is like **run**, but is asynchronous, where as **run** is synchronous
+- **driver=stdout** only prints CQL statements that NoSQLBench generates, but applies no statements to the database
+- **workload=cql-keyvalue** sets the name of the workload configuration file to cql-keyvalue
+- **tags=phase:rampup** is the target within the workload file
+- **cycles=10** tells **nb** how many times to run the target within the workload
+
+**NOTE:** *NoSQLBench generates data values deterministically so that the values will be the same from run to run. So, the output you see with **driver=stdout** will be the same as the values actually inserted with **driver=cql**.*
+
+📗 **Expected output**
+```
+ Logging to logs/scenario_20200530_134442_399.log
+insert into baselines.keyvalue
+(key, value)
+values (0,382062539);
+insert into baselines.keyvalue
+(key, value)
+values (1,774912474);
+insert into baselines.keyvalue
+(key, value)
+values (2,949364593);
+insert into baselines.keyvalue
+(key, value)
+values (3,352527683);
+insert into baselines.keyvalue
+(key, value)
+values (4,351686621);
+...
+```
+
+### 3b. This time let's insert the data into our table
+The command in this case will be almost exactly the same with one caveat. Notice the value for the **driver** parameter.
+
+![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
+
+📘 **Command to execute**
+```
+java -jar nb.jar start driver=cql workload=cql-keyvalue tags=phase:rampup cycles=10
+```
+
+![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To run on linux use the following command.
+
+📘 **Command to execute**
+```bash
+./nb run start driver=cql workload=cql-keyvalue tags=phase:rampup cycles=10
+```
+
+### 3c. View the results
+Our last command used **driver=cql** instead of **driver=stdout** which means it used the CQL driver to talk to Cassandra and insert the rampup data as compared to printing it to the terminal. Let's verify.
+
+📘 **Command to execute**
+```
+docker exec -it my-cassandra cqlsh -e "SELECT * FROM baselines.keyvalue;"
+```
+
+If you compare the data from our earlier command using **driver=stdout** the data in the table should match our previous output.
+
+📗 **Expected output**
+```
+ key | value
+-----+-----------
+   6 | 439790106
+   7 | 564330072
+   9 |  97405552
+   4 | 351686621
+   3 | 352527683
+   5 | 114304900
+   0 | 382062539
+   8 | 296173906
+   2 | 949364593
+   1 | 774912474
+```
 
 ## Congratulations, you've executed a set of NoSQLBench commands. Hopefully you are starting to get a feel for how it works.
 
