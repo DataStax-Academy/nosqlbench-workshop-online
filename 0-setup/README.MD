@@ -1,12 +1,12 @@
 
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/title-page.png?raw=true)
 
-# If you are using Katacoda
+# Initial Setup Using Katacoda
 If you wish to use our Katacoda scenarios (**recommended**) then go here -> https://katacoda.com/shallada/courses/nosqlbench-intro
 
 The Katacoda scenarios will bring you through a step-by-step experience in environments you can easily restart and play around with. It does require a sign-up, but is completely **FREE** to use.
 
-# If you wish to do things on your own machine
+# Initial Setup On Your Local Machine
 For those of you who would like to have a basic setup working on your own machine follow the steps below. **If you are using Katacoda you DO NOT NEED THESE STEPS**.
 
 ## Install Docker and Download NOSQLBench
@@ -84,19 +84,13 @@ That's it. This will spin up the latest version of Cassandra on port 9042. Shoul
 
 ### If you already happen to have a database up and running you can skip to step 3. It is assumed you are using default port 9042 for Cassandra.
 
-### 3. Download and execute NoSQLBench
+### 3. Download NoSQLBench
 
 You can run NoSQLBench via a Linux binary or jar file. It is recommended to use the binary as it includes its own JVM and does not need to manage Java downloads, but for those NOT using Linux systems the jar is fine. If you are using the jar Java 14 is recommended.
 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To download and install on Windows or OSX simply download the latest release jar file [HERE](https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb.jar)
 
-Once the jar download completes run the following command.
-
-📘 **Command to execute**
-```
-java -jar nb.jar cql-iot
-```
-Notice that when using the jar you will to prepend your commands with "java -jar nb.jar", but other than that ALL commands will work exactly the same as the binary.
+Once the jar download completes you are complete until the next exercsise.
 
 ![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To install on linux use the following commands.
 
@@ -107,31 +101,7 @@ wget https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb
 
 # Let's ensure ensure nb is executable
 chmod +x nb
-
-# Finally let's run a simple scenario (just ctrl-C to kill it once it starts up)
-./nb cql-iot
 ```
-
-### 4. Some initial results
-Wether you're using the binary or jar you should see output similar the following log statement and initial reporting. Feel free to kill the scenario with ctrl-C at this point.
-
-In the previous "nb cql-iot" command we just ran a pre-packaged scenario. Don't worry about the details of that just yet, we'll get there. What's key is you see something similar to the output below which means everything is hooked up and running.
-
-📗 **Expected output**
-```bash
-Logging to logs/scenario_20200530_110840_609.log
-cql-iot_default_001: 3.45%/Running (details: min=0 cycle=345214 max=10000000)
-cql-iot_default_000: 100.00%/Finished (details: min=0 cycle=3 max=3) (last report)
-```
-
-### 5. Let's clean up
-The bechmark we just ran created a keyspace. Let's delete it just to keep things clean. Again, the following instruction assumes you are using the Docker setup. If you are using your own Cassandra then you'll need to use your own cqlsh as well. :)
-
-📘 **Command to execute**
-```
-docker exec -it my-cassandra cqlsh -e "DROP KEYSPACE baselines;"
-```
-
-## Congratulations, your initial NoSQLBench setup is complete.
+## Congratulations, your initial NoSQLBench setup is complete. We'll start running some commands in the next section.
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
