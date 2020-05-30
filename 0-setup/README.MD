@@ -74,7 +74,9 @@ docker -v
 
 ### 2. Start Cassandra
 Obviously NoSQLBench needs something to benchmark against and in this workshop we will use an Apache Cassandra™ database. 
-Let's start one up using Docker
+Let's start one up using Docker.
+
+📘 **Command to execute**
 ```
 docker run --name my-cassandra -p 9042:9042 -d cassandra:latest
 ```
@@ -88,7 +90,7 @@ You can run NoSQLBench via a Linux binary or jar file. It is recommended to use 
 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To download and install on Windows or OSX simply download the latest release jar file [HERE](https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb.jar)
 
-Once the jar download completes run the following command
+Once the jar download completes run the following command.
 
 📘 **Command to execute**
 ```
@@ -96,7 +98,7 @@ java -jar nb.jar cql-iot
 ```
 Notice that when using the jar you will to prepend your commands with "java -jar nb.jar", but other than that ALL commands will work exactly the same as the binary.
 
-![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To install on linux use the following commands
+![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To install on linux use the following commands.
 
 📘 **Commands to execute**
 ```bash
