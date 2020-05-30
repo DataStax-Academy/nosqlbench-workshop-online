@@ -89,6 +89,7 @@ You can run NoSQLBench via a Linux binary or jar file. It is recommended to use 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To download and install on Windows or OSX simply download the latest release jar file [HERE](https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb.jar)
 
 Once the jar download completes run the following command
+
 📘 **Command to execute**
 ```
 java -jar nb.jar cql-iot
@@ -110,7 +111,7 @@ chmod +x nb
 ```
 
 ### 4. Some initial results
-Wither you're using the binary or jar you should see output similar the following log statement and initial reporting. Feel free to kill the scenario with ctrl-C at this point.
+Wether you're using the binary or jar you should see output similar the following log statement and initial reporting. Feel free to kill the scenario with ctrl-C at this point.
 
 📗 **Expected output**
 ```bash
