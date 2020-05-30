@@ -3,7 +3,7 @@ Cassandra Developer Workshop - NoSQLBench
 
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/title-page.png?raw=true)
 
-In this repository, you'll find everything from the online Cassandra Developer Workshop:
+In this repository, you'll find everything from the online Cassandra Developer Workshop for NoSQLBench:
 - Materials used during presentations
 - Hands-on exercises
 
