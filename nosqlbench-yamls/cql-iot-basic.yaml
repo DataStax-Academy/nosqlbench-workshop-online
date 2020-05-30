@@ -1,12 +1,9 @@
-# nb cql-iot-basic-scenario --docker-metrics
+# nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:schema threads=auto cycles=3
+# nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:rampup threads=auto cycles=100000 --docker-metrics
+# nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main threads=auto cycles=100000 --docker-metrics
 description: |
-  This workload emulates a time-series data model and access patterns and uses a named scenario to run all phases with default values.
+  This workload emulates a time-series data model and access patterns.
 
-scenarios:
-  default:
-    - run driver=cql tags==phase:schema threads==1 cycles==UNDEF
-    - run driver=cql tags==phase:rampup cycles==100000 threads=auto
-    - run driver=cql tags==phase:main cycles==100000 threads=auto
 blocks:
   - tags:
       phase: schema
