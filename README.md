@@ -28,7 +28,7 @@ Feel free to bookmark this page for future reference!
 | **6 - Custom workloads and scenarios** | [Instructions](3-custom-workloads/README.MD)  |
 
 ## Extra Materials
-If you are interesed in learning more about Apache Cassandra try out our other Katacoda scenarios
+If you are interesed in learning more about Apache Cassandra™ try out our other Katacoda scenarios
 
 | Title  | Description
 |---|---|
