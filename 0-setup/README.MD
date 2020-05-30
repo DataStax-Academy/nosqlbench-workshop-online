@@ -115,6 +115,8 @@ chmod +x nb
 ### 4. Some initial results
 Wether you're using the binary or jar you should see output similar the following log statement and initial reporting. Feel free to kill the scenario with ctrl-C at this point.
 
+In the previous "nb cql-iot" command we just ran a pre-packaged scenario. Don't worry about the details of that just yet, we'll get there. What's key is you see something similar to the output below which means everything is hooked up and running.
+
 📗 **Expected output**
 ```bash
 Logging to logs/scenario_20200530_110840_609.log
