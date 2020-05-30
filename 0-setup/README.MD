@@ -124,6 +124,14 @@ cql-iot_default_001: 3.45%/Running (details: min=0 cycle=345214 max=10000000)
 cql-iot_default_000: 100.00%/Finished (details: min=0 cycle=3 max=3) (last report)
 ```
 
+### 5. Let's clean up
+The bechmark we just ran created a keyspace. Let's delete it just to keep things clean. Again, the following instruction assumes you are using the Docker setup. If you are using your own Cassandra then you'll need to use your own cqlsh as well. :)
+
+📘 **Command to execute**
+```
+docker exec -it my-cassandra cqlsh -e "DROP KEYSPACE baselines;"
+```
+
 ## Congratulations, your initial NoSQLBench setup is complete.
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
