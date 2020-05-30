@@ -121,3 +121,7 @@ Logging to logs/scenario_20200530_110840_609.log
 cql-iot_default_001: 3.45%/Running (details: min=0 cycle=345214 max=10000000)
 cql-iot_default_000: 100.00%/Finished (details: min=0 cycle=3 max=3) (last report)
 ```
+
+## Congratulations, your initial NoSQLBench setup is complete.
+
+![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
