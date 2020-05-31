@@ -34,6 +34,34 @@ This is letting you know that Grafana is now available at a **default** of http:
 ### 1b. Launch Grafana
 At this point you should be able to open http://localhost:3000 in your browser. Let's do that.
 
+📘 **Command to execute**
+<pre>
+Ctrl-click on <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> to launch Grafana in a new tab.
+</pre>
+
+The first screen you are presented should look something like:
+![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/SkipChangePW.png?raw=true)
+
+The credentials are
+- username: *admin*
+- password: *admin*
+
+Normally, you should change your password when you login the first time, but for this training scenario, just skip it.
+
+📘 **Command to execute**
+<pre>
+Next, click on the dropdown arrow by the Home icon.
+</pre>
+![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/HomeButton.png?raw=true)
+
+📘 **Command to execute**
+```
+Then, click on Analysis.
+```
+![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/AnalysisLink.png?raw=true)
+
+The benchmark will need to run for a minute or so to allow statistics to accumulate. Then you will start to see results in the various metrics' graphs.
+
 
 ## Woot! You've now got a taste of how to quickly visualize metrics with NoSQLBench. Now, let's move on to creating workloads to fit YOUR data model.
 
