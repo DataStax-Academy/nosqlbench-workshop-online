@@ -11,6 +11,8 @@ Even though there are [multiple ways](http://docs.nosqlbench.io/#/docs/getting_s
 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
 
+**NOTE:** For Windows users, --docker-metrics is experimental at best. It may not work right out of the box.
+
 📘 **Command to execute**
 ```
 java -jar nb.jar cql-iot cyclerate=100 --progress console:15s --docker-metrics
@@ -137,7 +139,7 @@ Finally, you should see something like this.
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/ViewGraph.png?raw=true)
 
-Now you are free to dig into as much raw data as you want!
+### Now you are free to dig into as much raw data as you want!
 
 ## Woot! You've now got a taste of how to quickly visualize metrics with NoSQLBench. Now, let's move on to creating workloads to fit YOUR data model.
 
