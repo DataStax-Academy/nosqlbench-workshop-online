@@ -81,7 +81,7 @@ Since we've been using the cql-iot workload throughout this workshop let's work 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
 
 📘 **Command to execute**
-```
+```bash
 java -jar nb.jar --copy cql-iot
 ```
 
@@ -113,7 +113,91 @@ Since this is our first introduction to workload configuration, we created some 
 ### 3a. Create a test schema
 The first thing a workload wants to do is create the necessary keyspace and tables for the benchmark. Here's an example workload to create the IOT keyspace and tables.
 
-![cql-iot-basic-schema.yaml](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/nosqlbench-yamls/cql-iot-basic-schema.yaml)
+```yaml
+# nb run driver=cql workload=cql-iot-basic-schema.yaml threads=auto cycles=3
+description: |
+  This workload emulates a time-series data model schema creation.
+blocks:
+  - tags:
+      phase: schema
+    params:
+      prepared: false
+    statements:
+     - create-keyspace: |
+        create keyspace if not exists baselines
+        WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}
+        AND durable_writes = true;
+     - create-table : |
+        create table if not exists baselines.iot (
+        machine_id UUID,     // source machine
+        sensor_name text,    // sensor name
+        time timestamp,      // timestamp of collection
+        sensor_value double, //
+        station_id UUID,     // source location
+        data text,
+        PRIMARY KEY ((machine_id, sensor_name), time)
+        ) WITH CLUSTERING ORDER BY (time DESC)
+         AND compression = { 'sstable_compression' : 'LZ4Compressor' }
+         AND compaction = {
+         'class': 'TimeWindowCompactionStrategy',
+         'compaction_window_size': 60,
+         'compaction_window_unit': 'MINUTES'
+        };
+     - truncate-table: |
+         truncate table baselines.iot;
+```
+
+We'll put a comment at the top of the file that shows how to run the workload as well as a description of the workload.
+```yaml
+# nb run driver=cql workload=cql-iot-basic-schema.yaml threads=auto cycles=3
+description: |
+  This workload emulates a time-series data model schema creation.
+```
+
+The remainder of this file is a list named blocks containing a single block. Each block has tags. We use these tags to indicate the phase of the workload. In this example, the phase is **schema**, which is short for schema creation. Remember back in the **Executing Commands** section when we executed the command "run driver=cql workload=cql-keyvalue tags=phase:schema"? This is the *Schema* phase we were referring to in the **cql-keyvalue** workload. When called, it will process everything in the **schema** phase.
+```yaml
+blocks:
+  - tags:
+      phase: schema
+```
+
+Ok, so let's take a look at the rest of the file. 
+- **prepared: false** is telling nb none of the following statements needs to be prepared. Since these are used only once for schema creation they do not need to be prepared
+- **statements:** sets the statements that will be executed within this phase
+- **- create-keyspace:** sets the CQL DDL statement to use for creating the keyspace
+- **- create-table :** sets the CQL DDL statement(s) to use for creating and tables
+- **- truncate-table:** is truncating the table in case it already exists to ensure data is clean
+
+Notice within each **statement** type are the CQL statements to execute. These are exactly the same as the statements you might execute within cqlsh or from within your application.
+```yaml
+params:
+      prepared: false
+    statements:
+     - create-keyspace: |
+        create keyspace if not exists baselines
+        WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}
+        AND durable_writes = true;
+     - create-table : |
+        create table if not exists baselines.iot (
+        machine_id UUID,     // source machine
+        sensor_name text,    // sensor name
+        time timestamp,      // timestamp of collection
+        sensor_value double, //
+        station_id UUID,     // source location
+        data text,
+        PRIMARY KEY ((machine_id, sensor_name), time)
+        ) WITH CLUSTERING ORDER BY (time DESC)
+         AND compression = { 'sstable_compression' : 'LZ4Compressor' }
+         AND compaction = {
+         'class': 'TimeWindowCompactionStrategy',
+         'compaction_window_size': 60,
+         'compaction_window_unit': 'MINUTES'
+        };
+     - truncate-table: |
+         truncate table baselines.iot;
+```
+
+*BTW, all of the above sections are optional. Obviously, you would need to create a keyspace if you want any tables, but you technically don't have to include it. I just included this set of examples to give a "full" picture of what you might need for a schema.*
 
 ## Alrighty. I think at this point you can call yourself dangerous and start executing NoSQLBench against your own data models. Good luck and happy benchmarking!
 
