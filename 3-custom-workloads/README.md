@@ -199,6 +199,68 @@ params:
 
 *BTW, all of the above sections are optional. Obviously, you would need to create a keyspace if you want any tables, but you technically don't have to include it. I just included this set of examples to give a "full" picture of what you might need for a schema.*
 
+### 3b. Insert initial seed data
+When benchmarking you're attempting to emulate what your what your system performance looks like under realistic conditions. This includes access patterns, data density, and factoring in headroom that any highly available system requires. The **rampup** phase is meant to bring a system under test to a realistic density with a realistic data set.
+
+*Response, throughput, and data density are always connected. Every database performs differently at higher density for read operations, thus it is imperative that you qualify your results with all three parameters: throughput, latency, and density.*
+
+```yaml
+# nb run driver=cql workload=cql-iot-basic-rampup.yaml threads=auto cycles=100000
+description: |
+  This workload emulates a time-series data model and ramps up data after schema creation.
+blocks:
+  - tags:
+      phase: rampup
+    bindings:
+      machine_id: Mod(10000); ToHashedUUID() -> java.util.UUID
+      sensor_name: HashedLineToString('data/variable_words.txt')
+      time: Mul(100); Div(10000L); ToDate()
+      cell_timestamp: Mul(100L); Div(10000L); Mul(1000L)
+      sensor_value: Normal(0.0,5.0); Add(100.0) -> double
+      station_id: Div(10000);Mod(100); ToHashedUUID() -> java.util.UUID
+      data: HashedFileExtractToString('data/lorem_ipsum_full.txt',800,1200)
+    statements:
+     - insert-rampup: |
+        insert into baselines.iot
+        (machine_id, sensor_name, time, sensor_value, station_id, data)
+        values ({machine_id}, {sensor_name}, {time}, {sensor_value}, {station_id}, {data})
+        using timestamp {cell_timestamp}
+       idempotent: true
+       prepared: true
+       cl: LOCAL_QUORUM
+```
+
+Notice the name of our **phase** tag. Again, remember back to the **Executing Commands** section when we executed the command "start driver=stdout workload=cql-keyvalue **tags=phase:rampup** cycles=10"? This was executing the **rampup** phase which inserts the initial dataset into our data model and primes us for our benchmark.
+```yaml
+blocks:
+  - tags:
+      phase: rampup
+```
+
+I think at this point you will recognize the **insert** statement within the **statements** section to be the insert statement responsible for our data load. Again, this is the same DML statement would you execute in cqlsh or from your application. 
+Notice the following paramters, again, all optional.
+- **idempotent: true** sets idempotency to true
+- **prepared: true** sets prepared to true since this query will run many times
+- **cl: LOCAL_QUORUM** sets our consistency level to LOCAL_QUORUM
+
+The last part I want to call out is the **bindings** section. This is the section where our "generated" data comes from. I put generated in quotes because data is not randomly generated or anything like that. It comes from initial seed data and functions used to calculate values. The key here is that this data is deterministic which means subsequent runs will generate the same data. If you want a deeper dive take a look [here](http://docs.nosqlbench.io/#/docs/bindings).
+
+For now, I want you to see the relationship between bindings and how they are applied to the insert statement.
+Notice the following 3 bindings.
+```yaml
+machine_id: Mod(10000); ToHashedUUID() -> java.util.UUID
+sensor_name: HashedLineToString('data/variable_words.txt')
+time: Mul(100); Div(10000L); ToDate()
+```
+
+Now notice our insert statement. See the curly braces {} around **machine_id**, **sensor_name**, and **time**? These are mapping the respective bindings to the insert statement. That's it. Create your bindings, then apply to your queries.
+```yaml
+ insert into baselines.iot
+        (machine_id, sensor_name, time, sensor_value, station_id, data)
+        values ({machine_id}, {sensor_name}, {time}, {sensor_value}, {station_id}, {data})
+```
+
+
 ## Alrighty. I think at this point you can call yourself dangerous and start executing NoSQLBench against your own data models. Good luck and happy benchmarking!
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
