@@ -96,6 +96,49 @@ The fourth graph on the top row shows how many attempts (tries and retries) the 
 
 *If your database is getting overwhelemed or stressed you might see an increase in the number of retries. In a perfect scenario this should always be 1 or very close to it. If this consistently deviates above 1 it garners investigation. If you are seeing values of around 10 you should stop what you are doing and investigate immediately.*
 
+# Step 4. Launch Prometheus and View Metrics
+Grafana actually pulls its data from Prometheus, which gets the data indirectly from NoSQLBench. You can launch Prometheus by opening http://localhost:9090 in your browser.
+
+<pre>
+Ctrl-click on <a href="http://localhost:9090">http://localhost:9090</a> to launch Prometheus in a new tab.
+</pre>
+
+Prometheus is useful if you are a die-hard metrics junkie who wants the raw footage. For example, if we want to investigate the raw one-minute mean service time data, we would follow these steps.
+
+📘 **Command to execute**
+<pre>
+First, select insert metric at cursor
+</pre>
+
+![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/InsertMetric.png?raw=true)
+
+📘 **Command to execute**
+<pre>
+Next, scroll down and select this metric.
+</pre>
+
+![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/SelectMetric.png?raw=true)
+
+📘 **Command to execute**
+<pre>
+Click the Execute button.
+</pre>
+
+![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/ExecuteMetric.png?raw=true)
+
+📘 **Command to execute**
+<pre>
+Select the Graph tab.
+</pre>
+
+![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/SelectGraph.png?raw=true)
+
+Finally, you should see something like this.
+
+![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/ViewGraph.png?raw=true)
+
+Now you are free to dig into as much raw data as you want!
+
 ## Woot! You've now got a taste of how to quickly visualize metrics with NoSQLBench. Now, let's move on to creating workloads to fit YOUR data model.
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
