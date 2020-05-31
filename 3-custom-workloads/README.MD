@@ -110,6 +110,11 @@ Using your favorite text/yaml editor open cql-iot.yaml and inspect the contents
 # Step 3: Building Your First Workload
 Since this is our first introduction to workload configuration, we created some stripped-down files to emphsize the important parts. We'll use these stripped-down files instead of the one we extracted, but when we are done, you should be able to make your way through the file you extracted.
 
+### 3a. Create a test schema
+The first thing a workload wants to do is create the necessary keyspace and tables for the benchmark. Here's an example workload to create the IOT keyspace and tables.
+
+![cql-iot-basic-schema.yaml](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/nosqlbench-yamls/cql-iot-basic-schema.yaml)
+
 ## Alrighty. I think at this point you can call yourself dangerous and start executing NoSQLBench against your own data models. Good luck and happy benchmarking!
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
