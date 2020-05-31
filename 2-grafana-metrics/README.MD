@@ -31,9 +31,10 @@ On your first run it might take a moment for all of the Grafana images to downlo
 
 This is letting you know that Grafana is now available at a **default** of http://localhost:3000 and Prometheus at a **default** of http://localhost:9090.
 
-### 1b. Launch Grafana
+# Step 2. View Grafana
 At this point you should be able to open http://localhost:3000 in your browser. Let's do that.
 
+### 2a. Launch Grafana in your browser and login
 📘 **Command to execute**
 <pre>
 Ctrl-click on <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> to launch Grafana in a new tab.
@@ -48,6 +49,7 @@ The credentials are
 
 Normally, you should change your password when you login the first time, but for this training scenario, just skip it.
 
+### 2b. Navigate to the *Analysis* dashboard
 📘 **Command to execute**
 <pre>
 Next, click on the dropdown arrow by the Home icon.
@@ -62,6 +64,7 @@ Then, click on Analysis.
 
 The benchmark will need to run for a minute or so to allow statistics to accumulate. Then you will start to see results in the various metrics' graphs.
 
+# Step 3. View Various Metrics
 
 ## Woot! You've now got a taste of how to quickly visualize metrics with NoSQLBench. Now, let's move on to creating workloads to fit YOUR data model.
 
