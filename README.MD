@@ -22,10 +22,10 @@ Feel free to bookmark this page for future reference!
 
 | Title  | Description
 |---|---|
-| **0 - Initial NoSQLBench setup** | [Instructions](0-setup/README.MD) |
-| **1 - Executing commands** | [Instructions](1-executing-commands/README.MD)  |
-| **2 - Understanding metrics** | [Instructions](2-grafana-metrics/README.MD)  |
-| **3 - Custom workloads and scenarios** | [Instructions](3-custom-workloads/README.MD)  |
+| **0 - Initial NoSQLBench setup** | [Instructions](0-setup/README.md) |
+| **1 - Executing commands** | [Instructions](1-executing-commands/README.md)  |
+| **2 - Understanding metrics** | [Instructions](2-grafana-metrics/README.md)  |
+| **3 - Custom workloads and scenarios** | [Instructions](3-custom-workloads/README.md)  |
 
 ## Extra Materials
 If you are interesed in learning more about Apache Cassandra™ try out our other Katacoda scenarios
