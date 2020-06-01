@@ -65,6 +65,7 @@ Then, click on NoSQLBench.
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/AnalysisLink.png?raw=true)
 
 The benchmark will need to run for a minute or so to allow statistics to accumulate. Then you will start to see results in the various metrics' graphs. You may want to change your refresh rate in Grafana to use **Last 5 mintes Refresh every 5s** per the image below in order to see data more quickly.
+
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/RefreshRate.png?raw=true)
 
 # Step 3. View Various Metrics
