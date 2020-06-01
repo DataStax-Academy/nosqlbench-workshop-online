@@ -197,7 +197,7 @@ params:
 *BTW, all of the above sections are optional. Obviously, you would need to create a keyspace if you want any tables, but you technically don't have to include it. I just included this set of examples to give a "full" picture of what you might need for a schema.*
 
 ### 3b. Insert initial seed data
-When benchmarking you're attempting to emulate what your what your system performance looks like under realistic conditions. This includes access patterns, data density, and factoring in headroom that any highly available system requires. The **rampup** phase is meant to bring a system under test to a realistic density with a realistic data set.
+When benchmarking you're attempting to emulate what your system performance looks like under realistic conditions. This includes access patterns, data density, and factoring in headroom that any highly available system requires. The **rampup** phase is meant to bring a system under test to a realistic density with a realistic data set.
 
 *Response, throughput, and data density are always connected. Every database performs differently at higher density for read operations, thus it is imperative that you qualify your results with all three parameters: throughput, latency, and density.*
 
