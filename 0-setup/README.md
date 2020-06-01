@@ -88,7 +88,9 @@ That's it. This will spin up the latest version of Cassandra on port 9042. Shoul
 
 ### 3. Download NoSQLBench
 
-You can run NoSQLBench via a Linux binary or jar file. It is recommended to use the binary as it includes its own JVM and does not need to manage Java downloads, but for those NOT using Linux systems the jar is fine. If you are using the jar Java 14 is recommended.
+You can run NoSQLBench via a Linux binary or jar file. It is recommended to use the binary as it includes its own JVM and does not need to manage Java downloads, but for those NOT using Linux systems the jar is fine. If you are using the jar Java 14 is recommended. *MacOS* users may want to check out [https://github.com/AdoptOpenJDK/homebrew-openjdk](https://github.com/AdoptOpenJDK/homebrew-openjdk) to get Java 14 using openJDK on the Mac.
+
+It is **STRONGLY RECOMMENDED** that you create a directory to use with NoSQLBench and download it there as we will generate many files over the course of our time in the workshop.
 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To download and install on Windows or OSX simply download the latest release jar file [HERE](https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb.jar)
 
