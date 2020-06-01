@@ -92,10 +92,7 @@ java -jar nb.jar --copy cql-iot
 ./nb --copy cql-iot
 ```
 
-📗 **Expected output**
-```
-There is no log output, but cql-iot.yaml should be sitting in the directory where you ran the above command.
-```
+There is no log output, but **cql-iot.yaml should be sitting in the directory** where you ran the above command.
 
 ### 2b. Reading the yaml
 Briefly, inspect the extracted file with your favorite editor. Like an unfamiliar yaml file, these can be a bit overwhelming at first glance, but we'll walk you through it. By the end of this scenario, you'll be comfortable with the basics!
