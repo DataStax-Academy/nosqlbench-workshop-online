@@ -42,12 +42,12 @@ At this point you should be able to open http://localhost:3000 in your browser. 
 Ctrl-click on <a href="http://localhost:3000">http://localhost:3000</a> to launch Grafana in a new tab.
 </pre>
 
-The first screen you are presented should look something like:
-![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/SkipChangePW.png?raw=true)
-
 The credentials are
 - username: *admin*
 - password: *admin*
+
+The first screen you are presented should look something like:
+![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/SkipChangePW.png?raw=true)
 
 Normally, you should change your password when you login the first time, but for this training scenario, just skip it.
 
