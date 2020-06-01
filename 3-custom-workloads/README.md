@@ -289,9 +289,86 @@ blocks:
       phase: main
 ```
 
-You can see we have a single **read** statement with 2 bindings for **machine_id** and **sensor_name** set to **LOCAL_QUORUM** using prepared statements.
+You can see we have a single **read** query with 2 bindings for **machine_id** and **sensor_name** set to **LOCAL_QUORUM** using prepared statements.
 
+# Step 4: Putting it all Together
+Ok, at this point you could actually stop with the **schema**, **rampup**, and **main** phase files and simply work with those. If you wanted you could execute each of these like the following examples and be perfectly fine.
+```bash
+# nb run driver=cql workload=cql-iot-basic-schema.yaml tags=phase:schema threads=auto cycles=3
+# nb run driver=cql workload=cql-iot-basic-rampup.yaml tags=phase:rampup threads=auto cycles=100000
+# nb run driver=cql workload=cql-iot-basic-main.yaml tags=phase:main threads=auto cycles=100000
+```
 
-## Alrighty. I think at this point you can call yourself dangerous and start executing NoSQLBench against your own data models. Good luck and happy benchmarking!
+However, we can go another step further and really bring some awesomness to the party. In the following example I have combined all of the above examples into a single workload file. Now, I have a single file to use for my whole benchmarking setup. I can call any phase I want using **tags=phase:*some-phase-here*** from the command line.
+
+```yaml
+# nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:schema threads=auto cycles=3
+# nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:rampup threads=auto cycles=100000
+# nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main threads=auto cycles=100000
+description: |
+  This workload emulates a time-series data model and access patterns.
+blocks:
+  - tags:
+      phase: schema
+    params:
+      prepared: false
+    statements:
+     - create-keyspace: |
+        create keyspace if not exists baselines
+        WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}
+        AND durable_writes = true;
+     - create-table : |
+        create table if not exists baselines.iot (
+        machine_id UUID,     // source machine
+        sensor_name text,    // sensor name
+        time timestamp,      // timestamp of collection
+        sensor_value double, //
+        station_id UUID,     // source location
+        data text,
+        PRIMARY KEY ((machine_id, sensor_name), time)
+        ) WITH CLUSTERING ORDER BY (time DESC)
+         AND compression = { 'sstable_compression' : 'LZ4Compressor' }
+         AND compaction = {
+         'class': 'TimeWindowCompactionStrategy',
+         'compaction_window_size': 60,
+         'compaction_window_unit': 'MINUTES'
+        };
+     - truncate-table: |
+         truncate table baselines.iot;
+  - tags:
+      phase: rampup
+    params:
+      cl: LOCAL_QUORUM
+    bindings:
+      machine_id: Mod(10000); ToHashedUUID() -> java.util.UUID
+      sensor_name: HashedLineToString('data/variable_words.txt')
+      time: Mul(100L); Div(10000L); ToDate()
+      cell_timestamp: Mul(100L); Div(10000L); Mul(1000L)
+      sensor_value: Normal(0.0,5.0); Add(100.0) -> double
+      station_id: Div(10000);Mod(100); ToHashedUUID() -> java.util.UUID
+      data: HashedFileExtractToString('data/lorem_ipsum_full.txt',800,1200)
+    statements:
+     - insert-rampup: |
+        insert into  baselines.iot
+        (machine_id, sensor_name, time, sensor_value, station_id, data)
+        values ({machine_id}, {sensor_name}, {time}, {sensor_value}, {station_id}, {data})
+        using timestamp {cell_timestamp}
+       idempotent: true
+  - tags:
+      phase: main
+    params:
+      cl: LOCAL_QUORUM
+      prepared: true
+    bindings:
+      machine_id: Mod(10000); ToHashedUUID() -> java.util.UUID
+      sensor_name: HashedLineToString('data/variable_words.txt')
+    statements:
+     - select-read: |
+         select * from baselines.iot
+         where machine_id={machine_id} and sensor_name={sensor_name}
+         limit 10
+```
+
+## Ok, I think it's time to grab a cup of coffee or tea and take a mental break. I threw a good amount at you there. When you're ready join me in the next section and we'll see how we can use templates and scenarios within our workloads to really uplevel our benchmarking scripts.
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
