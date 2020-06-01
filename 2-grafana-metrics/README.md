@@ -51,7 +51,7 @@ The credentials are
 
 Normally, you should change your password when you login the first time, but for this training scenario, just skip it.
 
-### 2b. Navigate to the *Analysis* dashboard
+### 2b. Navigate to the *NoSQLBench* dashboard
 📘 **Command to execute**
 <pre>
 Next, click on the dropdown arrow by the Home icon.
@@ -60,7 +60,7 @@ Next, click on the dropdown arrow by the Home icon.
 
 📘 **Command to execute**
 ```
-Then, click on Analysis.
+Then, click on NoSQLBench.
 ```
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/AnalysisLink.png?raw=true)
 
@@ -109,17 +109,11 @@ Prometheus is useful if you are a die-hard metrics junkie who wants the raw foot
 
 📘 **Command to execute**
 <pre>
-First, select insert metric at cursor
+First, select insert metric at cursor and select the metric
 </pre>
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/InsertMetric.png?raw=true)
 
-📘 **Command to execute**
-<pre>
-Next, scroll down and select this metric.
-</pre>
-
-![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/SelectMetric.png?raw=true)
 
 📘 **Command to execute**
 <pre>
