@@ -42,16 +42,16 @@ At this point you should be able to open http://localhost:3000 in your browser. 
 Ctrl-click on <a href="http://localhost:3000">http://localhost:3000</a> to launch Grafana in a new tab.
 </pre>
 
-The first screen you are presented should look something like:
-![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/SkipChangePW.png?raw=true)
-
 The credentials are
 - username: *admin*
 - password: *admin*
 
+The first screen you are presented should look something like:
+![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/SkipChangePW.png?raw=true)
+
 Normally, you should change your password when you login the first time, but for this training scenario, just skip it.
 
-### 2b. Navigate to the *Analysis* dashboard
+### 2b. Navigate to the *NoSQLBench* dashboard
 📘 **Command to execute**
 <pre>
 Next, click on the dropdown arrow by the Home icon.
@@ -60,11 +60,12 @@ Next, click on the dropdown arrow by the Home icon.
 
 📘 **Command to execute**
 ```
-Then, click on Analysis.
+Then, click on NoSQLBench.
 ```
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/AnalysisLink.png?raw=true)
 
 The benchmark will need to run for a minute or so to allow statistics to accumulate. Then you will start to see results in the various metrics' graphs. You may want to change your refresh rate in Grafana to use **Last 5 mintes Refresh every 5s** per the image below in order to see data more quickly.
+
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/RefreshRate.png?raw=true)
 
 # Step 3. View Various Metrics
@@ -109,17 +110,11 @@ Prometheus is useful if you are a die-hard metrics junkie who wants the raw foot
 
 📘 **Command to execute**
 <pre>
-First, select insert metric at cursor
+First, select insert metric at cursor and select the metric
 </pre>
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/InsertMetric.png?raw=true)
 
-📘 **Command to execute**
-<pre>
-Next, scroll down and select this metric.
-</pre>
-
-![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/SelectMetric.png?raw=true)
 
 📘 **Command to execute**
 <pre>
