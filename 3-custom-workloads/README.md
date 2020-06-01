@@ -37,7 +37,7 @@ This workload emulates a time-series data model and access patterns.
 ```
 
 ### 1b. Using --list-scenarios
-Named scenarios are found within workloads and allow you to create multiple variations of scenarios. For example, maybe for the *default* scenario I perform queries as I would expect, but I also might want an *allow-filtering* scenario to test out what might happen if I use **ALLOW FILTERING** in my read queries. I can add both to a workload to make it easy to switch between them, reuse the same bindings, or even run them as part of a single benchmark for comparison.
+Named scenarios are found within workloads and allow you to create multiple variations of scenarios. For example, maybe for the **default** scenario I perform queries as I would expect, but I also might want an **allow-filtering** scenario to test out what might happen if I use **ALLOW FILTERING** in my read queries. I can add both to a workload to make it easy to switch between them, reuse the same bindings, or even run them as part of a single benchmark for comparison.
 
 ![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
 
@@ -154,7 +154,7 @@ description: |
   This workload emulates a time-series data model schema creation.
 ```
 
-The remainder of this file is a list named blocks containing a single block. Each block has tags. We use these tags to indicate the phase of the workload. In this example, the phase is **schema**, which is short for schema creation. Remember back in the **Executing Commands** section when we executed the command "run driver=cql workload=cql-keyvalue tags=phase:schema"? This is the *Schema* phase we were referring to in the **cql-keyvalue** workload. When called, it will process everything in the **schema** phase.
+The remainder of this file is a list named blocks containing a single block. Each block has tags. We use these tags to indicate the phase of the workload. In this example, the phase is **schema**, which is short for schema creation. Remember back in the [**Executing Commands**](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/1-executing-commands#executing-commands) section when we executed the command ["run driver=cql workload=cql-keyvalue tags=phase:schema"](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/1-executing-commands#2a-create-the-schema)? This is the *Schema* phase we were referring to in the **cql-keyvalue** workload. When called, it will process everything in the **schema** phase.
 ```yaml
 blocks:
   - tags:
@@ -163,9 +163,9 @@ blocks:
 
 Ok, so let's take a look at the rest of the file. 
 - **prepared: false** is telling nb none of the following statements needs to be prepared. Since these are used only once for schema creation they do not need to be prepared
-- **statements:** sets the statements that will be executed within this phase
+- **statements:** sets the statements (3 in our example) that will be executed within this phase
 - **- create-keyspace:** sets the CQL DDL statement to use for creating the keyspace
-- **- create-table :** sets the CQL DDL statement(s) to use for creating and tables
+- **- create-table :** sets the CQL DDL statement(s) to use for creating tables
 - **- truncate-table:** is truncating the table in case it already exists to ensure data is clean
 
 Notice within each **statement** type are the CQL statements to execute. These are exactly the same as the statements you might execute within cqlsh or from within your application.
@@ -230,7 +230,7 @@ blocks:
        cl: LOCAL_QUORUM
 ```
 
-Notice the name of our **phase** tag. Again, remember back to the **Executing Commands** section when we executed the command "start driver=stdout workload=cql-keyvalue **tags=phase:rampup** cycles=10"? This was executing the **rampup** phase which inserts the initial dataset into our data model and primes us for our benchmark.
+Notice the name of our **phase** tag. Again, remember back to the [**Executing Commands**](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/1-executing-commands#executing-commands) section when we executed the command ["start driver=stdout workload=cql-keyvalue **tags=phase:rampup** cycles=10"](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/1-executing-commands#3a-test-activity-with-stdout)? This was executing the **rampup** phase which inserts the initial dataset into our data model and primes us for our benchmark.
 ```yaml
 blocks:
   - tags:
@@ -259,6 +259,37 @@ Now notice our insert statement. See the curly braces {} around **machine_id**, 
         (machine_id, sensor_name, time, sensor_value, station_id, data)
         values ({machine_id}, {sensor_name}, {time}, {sensor_value}, {station_id}, {data})
 ```
+
+### 3c. Execute your main benchmark
+Now that we have a schema created and our initial rampup data in place, it's time to run our main benchmark. Once more, remember back to the [**Executing Commands**](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/1-executing-commands#executing-commands) section when we executed the command ["start driver=cql workload=cql-keyvalue tags=**phase:main** cycles=100k cyclerate=5000 threads=50 --progress console:2s"](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/1-executing-commands#step-4-run-the-benchmark)? This was executing the **main** phase which starts our performance benchmark.
+
+```yaml
+# nb run driver=cql workload=cql-iot-basic-main.yaml threads=auto cycles=100000
+description: |
+  This workload emulates a time-series access pattern.
+blocks:
+  - tags:
+      phase: main
+    bindings:
+      machine_id: Mod(10000); ToHashedUUID() -> java.util.UUID
+      sensor_name: HashedLineToString('data/variable_words.txt')
+    statements:
+     - select-read: |
+         select * from baselines.iot
+         where machine_id={machine_id} and sensor_name={sensor_name}
+         limit 10
+       cl: LOCAL_QUORUM
+       prepared: true
+```
+
+One more time, let's look at the **phase** tag.
+```yaml
+blocks:
+  - tags:
+      phase: main
+```
+
+You can see we have a single **read** statement with 2 bindings for **machine_id** and **sensor_name** set to **LOCAL_QUORUM** using prepared statements.
 
 
 ## Alrighty. I think at this point you can call yourself dangerous and start executing NoSQLBench against your own data models. Good luck and happy benchmarking!
