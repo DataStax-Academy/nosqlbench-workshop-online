@@ -14,18 +14,18 @@ Feel free to bookmark this page for future reference!
 | Title  | Description
 |---|---|
 | **Slides** | [PRESENTATIONS](materials/presentation.pdf) |
-| **NoSQLBench Katacoda scenarios** | [Scenarios](https://katacoda.com/shallada/courses/nosqlbench-intro) |
+| **NoSQLBench Katacoda scenarios** | [Scenarios](https://katacoda.com/datastax/courses/nosqlbench-intro) |
 
 
 ## Exercises
 
 
-| Title  | Description
-|---|---|
-| **0 - Initial NoSQLBench setup** | [Instructions](0-setup/README.md) |
-| **1 - Executing commands** | [Instructions](1-executing-commands/README.md)  |
-| **2 - Understanding metrics** | [Instructions](2-grafana-metrics/README.md)  |
-| **3 - Custom workloads and scenarios** | [Instructions](3-custom-workloads/README.md)  |
+| Title  | Description | Katacoda |
+|---|---|---|
+| **0 - Initial NoSQLBench setup** | [Instructions](0-setup/README.md) | Not needed |
+| **1 - Executing commands** | [Instructions](1-executing-commands/README.md)  | [Katacoda](https://katacoda.com/datastax/courses/nosqlbench-intro/nosqlbench) |
+| **2 - Understanding metrics** | [Instructions](2-grafana-metrics/README.md)  | [Katacoda](https://katacoda.com/datastax/courses/nosqlbench-intro/nosqlbench-grafana) |
+| **3 - Custom workloads and scenarios** | [Instructions](3-custom-workloads/README.md)  | [Katacoda](https://katacoda.com/datastax/courses/nosqlbench-intro/nosqlbench-modify-workload) |
 
 ## Extra Materials
 If you are interesed in learning more about Apache Cassandra™ try out our other Katacoda scenarios
