@@ -500,6 +500,6 @@ java -jar nb.jar ./cql-iot-basic-scenario.yaml default --progress console:1s
 ./nb ./cql-iot-basic-scenario.yaml default --progress console:1s
 ```
 
-## Ok, I think it's time to grab a cup of coffee or tea and take a mental break. I threw a good amount at you there. There is a TON more you can do with NoSQLBench, but this should get you started and on your way to benchmarking your data models! 
+## Ok, I think it's time to grab a cup of coffee or tea and take a mental break. I threw a good amount at you there. There is a TON more you can do with NoSQLBench, but this should get you started and on your way to benchmarking your data models. Happy benchmarking! 
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
