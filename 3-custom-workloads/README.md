@@ -290,10 +290,23 @@ You can see we have a single **read** query with 2 bindings for **machine_id** a
 
 # Step 4: Putting it all Together
 Ok, at this point you could actually stop with the **schema**, **rampup**, and **main** phase files and simply work with those. If you wanted you could execute each of these like the following examples and be perfectly fine.
+
+![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
+
+📘 **Command to execute**
 ```bash
-# nb run driver=cql workload=cql-iot-basic-schema.yaml tags=phase:schema threads=auto cycles=3
-# nb run driver=cql workload=cql-iot-basic-rampup.yaml tags=phase:rampup threads=auto cycles=100000
-# nb run driver=cql workload=cql-iot-basic-main.yaml tags=phase:main threads=auto cycles=100000
+java -jar nb.jar run driver=cql workload=cql-iot-basic-schema.yaml threads=auto cycles=3
+java -jar nb.jar run driver=cql workload=cql-iot-basic-rampup.yaml threads=auto cycles=100000 --progress console:1s
+java -jar nb.jar run driver=cql workload=cql-iot-basic-main.yaml threads=auto cycles=100000 --progress console:1s
+```
+
+![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To run on linux use the following command.
+
+📘 **Command to execute**
+```bash
+./nb run driver=cql workload=cql-iot-basic-schema.yaml threads=auto cycles=3
+./nb run driver=cql workload=cql-iot-basic-rampup.yaml threads=auto cycles=100000 --progress console:1s
+./nb run driver=cql workload=cql-iot-basic-main.yaml threads=auto cycles=100000 --progress console:1s
 ```
 
 However, we can go another step further and really bring some awesomness to the party. In the following example I have combined all of the above examples into a single workload file. Now, I have a single file to use for my whole benchmarking setup. I can call any phase I want using **tags=phase:*some-phase-here*** from the command line.
@@ -364,6 +377,26 @@ blocks:
          select * from baselines.iot
          where machine_id={machine_id} and sensor_name={sensor_name}
          limit 10
+```
+
+Let's execute this last set with the single, combined file and notice we are now referencing a single yaml file along with using the **tags=phase:** parameter.
+
+![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
+
+📘 **Command to execute**
+```bash
+java -jar nb.jar run driver=cql workload=cql-iot-basic-all.yaml tags=phase:schema threads=auto cycles=3
+java -jar nb.jar run driver=cql workload=cql-iot-basic-all.yaml tags=phase:rampup threads=auto cycles=100000 --progress console:1s
+java -jar nb.jar run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main threads=auto cycles=100000 --progress console:1s
+```
+
+![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To run on linux use the following command.
+
+📘 **Command to execute**
+```bash
+./nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:schema threads=auto cycles=3
+./nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:rampup threads=auto cycles=100000 --progress console:1s
+./nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main threads=auto cycles=100000 --progress console:1s
 ```
 
 ## Ok, I think it's time to grab a cup of coffee or tea and take a mental break. I threw a good amount at you there. When you're ready join me in the next section and we'll see how we can use templates and scenarios within our workloads to really uplevel our benchmarking scripts.
