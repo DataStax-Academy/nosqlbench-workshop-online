@@ -2,7 +2,7 @@
 ![OK](https://github.com/DataStax-Academy/nosqlbech-workshop-online/blob/master/materials/images/title-page.png?raw=true)
 
 # Initial Setup Using Katacoda (**recommended**)
-If you wish to use our Katacoda scenarios then go here -> https://katacoda.com/shallada/courses/nosqlbench-intro
+If you wish to use our Katacoda scenarios then go here -> https://katacoda.com/datastax/courses/nosqlbench-intro
 
 The Katacoda scenarios will bring you through a step-by-step experience in environments you can easily restart and play around with. It does require a sign-up, but is completely **FREE** to use.
 
