@@ -399,7 +399,7 @@ java -jar nb.jar run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main 
 ./nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main threads=auto cycles=100000 --progress console:1s
 ```
 
-Further, we can create scenarios that allow us to run a sequence of blocks. We can specify the name of the scenario on the command line by passing the name of the scenario in the command line. If we name the scenario **default**, the scenario will run automatically.
+Further, we can create scenarios that allow us to run a sequence of blocks. We can specify the name of the scenario by passing the name of the scenario in the command line. If we name the scenario **default**, the scenario will run automatically.
 
 Here's an example. Let's modify the workload file by replacing adding a **scenarios:** section in our yaml.
 
