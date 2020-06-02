@@ -399,6 +399,107 @@ java -jar nb.jar run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main 
 ./nb run driver=cql workload=cql-iot-basic-all.yaml tags=phase:main threads=auto cycles=100000 --progress console:1s
 ```
 
-## Ok, I think it's time to grab a cup of coffee or tea and take a mental break. I threw a good amount at you there. When you're ready join me in the next section and we'll see how we can use templates and scenarios within our workloads to really uplevel our benchmarking scripts.
+Further, we can create scenarios that allow us to run a sequence of blocks. We can specify the name of the scenario on the command line by passing the name of the scenario in the command line. If we name the scenario **default**, the scenario will run automatically.
+
+Here's an example. Let's modify the workload file by replacing adding a **scenarios:** section in our yaml.
+
+```yaml
+scenarios:
+  default:
+    - run driver=cql tags==phase:schema threads==1 cycles==UNDEF
+    - run driver=cql tags==phase:rampup cycles==100000 threads=auto
+    - run driver=cql tags==phase:main cycles==100000 threads=auto
+```
+
+The complete yaml look like this.
+
+```yaml
+# nb cql-iot-basic-scenario --docker-metrics
+description: |
+  This workload emulates a time-series data model and access patterns and uses a named scenario to run all phases with default values.
+scenarios:
+  default:
+    - run driver=cql tags==phase:schema threads==1 cycles==UNDEF
+    - run driver=cql tags==phase:rampup cycles==100000 threads=auto
+    - run driver=cql tags==phase:main cycles==100000 threads=auto
+blocks:
+  - tags:
+      phase: schema
+    params:
+      prepared: false
+    statements:
+     - create-keyspace: |
+        create keyspace if not exists baselines
+        WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'}
+        AND durable_writes = true;
+     - create-table : |
+        create table if not exists baselines.iot (
+        machine_id UUID,     // source machine
+        sensor_name text,    // sensor name
+        time timestamp,      // timestamp of collection
+        sensor_value double, //
+        station_id UUID,     // source location
+        data text,
+        PRIMARY KEY ((machine_id, sensor_name), time)
+        ) WITH CLUSTERING ORDER BY (time DESC)
+         AND compression = { 'sstable_compression' : 'LZ4Compressor' }
+         AND compaction = {
+         'class': 'TimeWindowCompactionStrategy',
+         'compaction_window_size': 60,
+         'compaction_window_unit': 'MINUTES'
+        };
+     - truncate-table: |
+         truncate table baselines.iot;
+  - tags:
+      phase: rampup
+    params:
+      cl: LOCAL_QUORUM
+    bindings:
+      machine_id: Mod(10000); ToHashedUUID() -> java.util.UUID
+      sensor_name: HashedLineToString('data/variable_words.txt')
+      time: Mul(100L); Div(10000L); ToDate()
+      cell_timestamp: Mul(100L); Div(10000L); Mul(1000L)
+      sensor_value: Normal(0.0,5.0); Add(100.0) -> double
+      station_id: Div(10000);Mod(100); ToHashedUUID() -> java.util.UUID
+      data: HashedFileExtractToString('data/lorem_ipsum_full.txt',800,1200)
+    statements:
+     - insert-rampup: |
+        insert into  baselines.iot
+        (machine_id, sensor_name, time, sensor_value, station_id, data)
+        values ({machine_id}, {sensor_name}, {time}, {sensor_value}, {station_id}, {data})
+        using timestamp {cell_timestamp}
+       idempotent: true
+  - tags:
+      phase: main
+    params:
+      cl: LOCAL_QUORUM
+      prepared: true
+    bindings:
+      machine_id: Mod(10000); ToHashedUUID() -> java.util.UUID
+      sensor_name: HashedLineToString('data/variable_words.txt')
+    statements:
+     - select-read: |
+         select * from baselines.iot
+         where machine_id={machine_id} and sensor_name={sensor_name}
+         limit 10
+```
+
+And finally we can run our whole scenario with the following.
+
+![Windows](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/windows32.png?raw=true)  ![osx](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/mac32.png?raw=true): To run on Windows or OSX use the jar.
+
+📘 **Command to execute**
+```bash
+java -jar nb.jar ./cql-iot-basic-scenario.yaml default --progress console:1s
+```
+
+![linux](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/linux32.png?raw=true) : To run on linux use the following command.
+
+📘 **Command to execute**
+```bash
+./nb ./cql-iot-basic-scenario.yaml default --progress console:1s
+```
+
+## Ok, I think it's time to grab a cup of coffee or tea and take a mental break. I threw a good amount at you there. There is a TON more you can do with NoSQLBench, but this should get you started and on your way to benchmarking your data models! 
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
