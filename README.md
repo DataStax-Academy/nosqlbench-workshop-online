@@ -15,6 +15,7 @@ Feel free to bookmark this page for future reference!
 |---|---|
 | **Slides** | [PRESENTATIONS](materials/presentation.pdf) |
 | **NoSQLBench Katacoda scenarios** | [Scenarios](https://katacoda.com/datastax/courses/nosqlbench-intro) |
+| **NoSQLBench source** | [Github repo](https://github.com/nosqlbench/nosqlbench) |
 
 
 ## Exercises
