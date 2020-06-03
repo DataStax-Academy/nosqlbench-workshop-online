@@ -269,6 +269,6 @@ Now, this might seem like a lot to understand. Let's break it down.
 
 Ok, so there's a solid amount of data here and you may not know exactly what each of these mean. That's ok, We're going to get into the highlights in the next section and give you tools to visualize metrics data.
 
-## Congratulations, you've executed a set of NoSQLBench commands. Hopefully you are starting to get a feel for how it works.
+## Congratulations, you've executed a set of NoSQLBench commands. Hopefully you are starting to get a feel for how it works. Click [HERE](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/2-grafana-metrics) to go to the next scenario.
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
