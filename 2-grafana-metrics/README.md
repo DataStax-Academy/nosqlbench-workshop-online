@@ -136,6 +136,6 @@ Finally, you should see something like this.
 
 ### Now you are free to dig into as much raw data as you want!
 
-## Woot! You've now got a taste of how to quickly visualize metrics with NoSQLBench. Now, let's move on to creating workloads to fit YOUR data model.
+## Woot! You've now got a taste of how to quickly visualize metrics with NoSQLBench. Now, let's move on to creating workloads to fit YOUR data model. Click [HERE](https://github.com/DataStax-Academy/nosqlbench-workshop-online/tree/master/3-custom-workloads) to go to the next scenario.
 
 ![OK](https://github.com/DataStax-Academy/nosqlbench-workshop-online/blob/master/materials/images/welldone.jpg?raw=true)
